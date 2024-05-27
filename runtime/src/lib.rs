@@ -492,8 +492,25 @@ impl pallet_collator_selection::Config for Runtime {
 // Configure the custom pallets.
 
 
-impl kine_template::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
+// Template
+// impl kine_template::Config for Runtime {
+// 	type RuntimeEvent = RuntimeEvent;
+// }
+
+
+// Stat Tracker
+parameter_types! {
+	pub const DefaultReputation: u32 = 15;
+	pub const WalletNameStringLimit: u32 = 50;
+	pub const PalletStatTrackerId : PalletId = PalletId(*b"kine/trk");
+}
+
+impl kine_stat_tracker::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+	type Currency = Balances;
+	type DefaultReputation = DefaultReputation;
+	type NameStringLimit = WalletNameStringLimit;
+	type PalletId = PalletStatTrackerId;
 }
 
 
@@ -529,7 +546,8 @@ construct_runtime!(
 		MessageQueue: pallet_message_queue = 33,
 
 		// Custom Pallets
-		TemplatePallet: kine_template = 50,
+		// KineTemplate: kine_template = 50,
+		KineStatTracker: kine_stat_tracker = 51,
 	}
 );
 

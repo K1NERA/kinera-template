@@ -13,7 +13,7 @@ frame_support::construct_runtime!(
 	pub enum Test
 	{
 		System: frame_system::{Pallet, Call, Config<T>, Storage, Event<T>},
-		TemplatePallet: crate::{Pallet, Call, Storage, Event<T>},
+		KineTemplate: crate::{Pallet, Call, Storage, Event<T>},
 	}
 );
 
