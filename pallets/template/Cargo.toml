@@ -1,0 +1,50 @@
+[package]
+name = "kine-template"
+authors = ["Invisible Hand Labs Lda. <andreribeiro@invisiblehandlab.org>"]
+edition = "2021"
+version = "0.1.0"
+
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+
+[dependencies]
+codec = { workspace = true, features = ["derive"], default-features = false }
+scale-info = { workspace = true, default-features = false, features = ["derive"] }
+
+# Substrate
+frame-benchmarking = { workspace = true, default-features = false }
+frame-support = { workspace = true, default-features = false }
+frame-system = { workspace = true, default-features = false }
+
+[dev-dependencies]
+serde = { workspace = true, features = ["derive"] }
+
+# Substrate
+sp-core = { workspace = true, default-features = false }
+sp-io = { workspace = true, default-features = false }
+sp-runtime = { workspace = true, default-features = false }
+
+[features]
+default = ["std"]
+runtime-benchmarks = [
+	"frame-benchmarking/runtime-benchmarks",
+	"frame-support/runtime-benchmarks",
+	"frame-system/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+]
+std = [
+	"codec/std",
+	"frame-benchmarking/std",
+	"frame-support/std",
+	"frame-system/std",
+	"scale-info/std",
+	"sp-core/std",
+	"sp-runtime/std",
+]
+try-runtime = [
+	"frame-support/try-runtime",
+	"frame-system/try-runtime",
+	"sp-runtime/try-runtime",
+]
