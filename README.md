@@ -1,5 +1,5 @@
 # Kinera Parachain Template
-
+![kinera-banner-new](https://github.com/kinera-server/kinera-parachain/assets/67910335/9172a79f-6cad-4420-b97e-c5951465c877)
 Forked From Substrate Cumulus Parachain Template
 
 
