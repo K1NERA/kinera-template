@@ -33,6 +33,7 @@ scale-info = { version = "2.10.0", default-features = false, features = ["derive
 kine-runtime = { path = "runtime", default-features = false }
 kine-template = { path = "pallets/template", default-features = false }
 kine-stat-tracker = { path = "pallets/stat-tracker", default-features = false }
+kine-tags = { path = "pallets/tags", default-features = false }
 
 
 # Substrate

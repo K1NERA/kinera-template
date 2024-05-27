@@ -60,10 +60,6 @@ use weights::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight};
 // XCM Imports
 use xcm::latest::prelude::BodyId;
 
-/// Import the template pallet.
-// pub use pallet_parachain_template;
-// pub use kine_stat_tracker;
-
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
 
@@ -514,6 +510,26 @@ impl kine_stat_tracker::Config for Runtime {
 }
 
 
+// Tags
+parameter_types! {
+	pub const MaxTags: u32 = 10000;
+	pub const ContentStringLimit: u32 = 1000;
+	pub const CategoryStringLimit: u32 = 100;
+	pub const TagStringLimit: u32 = 100;
+	pub const MaxContentWithTag: u32 = 100000;
+}
+
+impl kine_tags::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+	type MaxTags = MaxTags;
+	type MaxContentWithTag = MaxContentWithTag;
+	type ContentStringLimit = ContentStringLimit;
+	type CategoryStringLimit = CategoryStringLimit;
+	type TagStringLimit = TagStringLimit;
+}
+
+
+
 
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -548,6 +564,7 @@ construct_runtime!(
 		// Custom Pallets
 		// KineTemplate: kine_template = 50,
 		KineStatTracker: kine_stat_tracker = 51,
+		KineTags: kine_tags = 52,
 	}
 );
 
