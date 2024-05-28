@@ -4601,6 +4601,7 @@ dependencies = [
  "frame-benchmarking-cli",
  "futures",
  "jsonrpsee",
+ "kine-ranking-list",
  "kine-runtime",
  "kine-tags",
  "log",
