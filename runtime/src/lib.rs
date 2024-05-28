@@ -545,6 +545,30 @@ impl kine_movie::Config for Runtime {
 }
 
 
+// Festival
+parameter_types! {
+	pub const DescStringLimit: u32 = 1000;
+	pub const MaxMoviesInFest: u32 = 1000;
+	pub const MaxOwnedFestivals: u32 = 50000;
+	pub const MinFesBlockDuration: u32 = 1; // prev 3600
+	pub const FestBlockSafetyMargin: u32 = 1; // prev 10
+	pub const MaxFestivalsPerBlock: u32 = 500;
+	pub const MaxVotes: u32 = 100000;
+	pub const PalletFestivalId: PalletId = PalletId(*b"FesStash");
+}
+
+impl kine_festival::Config for Runtime{
+    type RuntimeEvent = RuntimeEvent;
+	type FestivalId = u32;
+	type MaxMoviesInFest = MaxMoviesInFest;
+	type MaxOwnedFestivals = MaxOwnedFestivals;
+	type MinFesBlockDuration = MinFesBlockDuration;
+	type MaxFestivalsPerBlock = MaxFestivalsPerBlock;
+	type MaxVotes = MaxVotes;
+	type FestBlockSafetyMargin = FestBlockSafetyMargin;
+	type PalletId = PalletFestivalId;
+}
+
 
 
 
@@ -582,6 +606,7 @@ construct_runtime!(
 		KineStatTracker: kine_stat_tracker = 51,
 		KineTags: kine_tags = 52,
 		KineMovie: kine_movie = 53,
+		KineFestival: kine_festival = 54,
 	}
 );
 
