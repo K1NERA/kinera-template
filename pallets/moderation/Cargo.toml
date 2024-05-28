@@ -1,0 +1,49 @@
+[package]
+name = "kine-moderation"
+authors = ["Invisible Hand Labs Lda. <andreribeiro@invisiblehandlab.org>"]
+edition = "2021"
+version = "0.1.0"
+
+
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
+
+[dependencies]
+codec = { workspace = true, features = ["derive"], default-features = false }
+scale-info = { workspace = true, default-features = false, features = ["derive"] }
+
+# Frame
+frame-benchmarking = { workspace = true, default-features = false, optional = true }
+frame-support = { workspace = true, default-features = false, optional = true }
+frame-system = { workspace = true, default-features = false, optional = true }
+
+
+serde = { workspace = true, features = ["derive"] }
+sp-core = { workspace = true, default-features = false }
+sp-io = { workspace = true, default-features = false }
+sp-runtime = { workspace = true, default-features = false }
+sp-std = { workspace = true, default-features = false}
+
+kine-tags = { workspace = true, default-features = false}
+kine-stat-tracker = { workspace = true, default-features = false }
+
+[dev-dependencies]
+pallet-balances = {default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.25"}
+
+
+[features]
+default = ['std']
+runtime-benchmarks = ['frame-benchmarking']
+std = [
+	'codec/std',
+	'frame-benchmarking/std',
+	'frame-support/std',
+	'frame-system/std',
+	'scale-info/std',
+	'pallet-balances/std',
+	"kine-stat-tracker/std",
+	"kine-tags/std",
+]
+
+try-runtime = ['frame-support/try-runtime']
