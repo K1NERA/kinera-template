@@ -28,6 +28,7 @@ kine-stat-tracker = { workspace = true, default-features = false }
 kine-tags = { workspace = true, default-features = false }
 kine-movie = { workspace = true, default-features = false }
 kine-festival = { workspace = true, default-features = false }
+kine-ranking-list = { workspace = true, default-features = false }
 
 
 # Substrate
@@ -107,6 +108,7 @@ std = [
 	"kine-tags/std",
 	"kine-movie/std",
 	"kine-festival/std",
+	"kine-ranking-list/std",
 	"log/std",
 	"pallet-aura/std",
 	"pallet-authorship/std",
@@ -159,6 +161,7 @@ runtime-benchmarks = [
 	"kine-tags/runtime-benchmarks",
 	"kine-movie/runtime-benchmarks",
 	"kine-festival/runtime-benchmarks",
+	"kine-ranking-list/runtime-benchmarks",
 	"pallet-balances/runtime-benchmarks",
 	"pallet-collator-selection/runtime-benchmarks",
 	"pallet-message-queue/runtime-benchmarks",
@@ -188,6 +191,7 @@ try-runtime = [
 	"kine-tags/try-runtime",
 	"kine-movie/try-runtime",
 	"kine-festival/try-runtime",
+	"kine-ranking-list/try-runtime",
 	"pallet-aura/try-runtime",
 	"pallet-authorship/try-runtime",
 	"pallet-balances/try-runtime",

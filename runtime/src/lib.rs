@@ -570,6 +570,27 @@ impl kine_festival::Config for Runtime{
 }
 
 
+// Ranking List
+parameter_types!{
+    pub const PalletRankingListId : PalletId = PalletId(*b"kine/rnk");
+	pub const RankingStringLimit: u32 = 200;
+	pub const MaxMoviesInList: u32 = 100000;
+	pub const MinimumListDuration: u32 = 3600; // six hours in blocks
+	pub const MaxVotersPerList: u32 = 10000000;
+	pub const MaxListsPerBlock: u32 = 50;
+}
+
+impl kine_ranking_list::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+	type MaxListsPerBlock = MaxListsPerBlock;
+	type MaxVotersPerList = MaxVotersPerList;
+	type MaxMoviesInList = MaxMoviesInList;
+	type MinimumListDuration = MinimumListDuration;
+    type RankingStringLimit = RankingStringLimit;
+    type PalletId = PalletRankingListId;
+}
+
+
 
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -607,6 +628,7 @@ construct_runtime!(
 		KineTags: kine_tags = 52,
 		KineMovie: kine_movie = 53,
 		KineFestival: kine_festival = 54,
+		KineRankingList: kine_ranking_list = 55,
 	}
 );
 

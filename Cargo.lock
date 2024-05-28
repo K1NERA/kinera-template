@@ -4642,6 +4642,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "kine-ranking-list"
+version = "0.1.0"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "kine-movie",
+ "kine-stat-tracker",
+ "kine-tags",
+ "pallet-balances",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
 name = "kine-runtime"
 version = "0.1.0"
 dependencies = [
@@ -4663,6 +4682,7 @@ dependencies = [
  "hex-literal",
  "kine-festival",
  "kine-movie",
+ "kine-ranking-list",
  "kine-stat-tracker",
  "kine-tags",
  "log",
