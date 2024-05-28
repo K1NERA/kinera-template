@@ -1,0 +1,43 @@
+[package]
+name = "kine-movie"
+authors = ["Invisible Hand Labs Lda. <andreribeiro@invisiblehandlab.org>"]
+edition = "2021"
+version = "0.1.0"
+
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+
+[dependencies]
+codec = { workspace = true, features = ["derive"], default-features = false }
+scale-info = { workspace = true, default-features = false, features = ["derive"] }
+
+# Frame
+frame-benchmarking = { workspace = true, default-features = false, optional = true }
+frame-support = { workspace = true, default-features = false }
+frame-system = { workspace = true, default-features = false }
+
+# SP
+sp-core = { workspace = true, default-features = false }
+sp-io = { workspace = true, default-features = false }
+sp-runtime = { workspace = true, default-features = false }
+sp-std = { workspace = true, default-features = false}
+
+# Local Dependencies
+kine-tags = { workspace = true, default-features = false}
+kine-stat-tracker = { workspace = true }
+
+
+[features]
+default = ["std"]
+std = [
+	"codec/std",
+	"frame-benchmarking?/std",
+	"frame-support/std",
+	"frame-system/std",
+	"scale-info/std",
+	"kine-stat-tracker/std",
+]
+runtime-benchmarks = ["frame-benchmarking/runtime-benchmarks"]
+try-runtime = ["frame-support/try-runtime"]
