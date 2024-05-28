@@ -34,6 +34,7 @@ kine-runtime = { path = "runtime", default-features = false }
 kine-template = { path = "pallets/template", default-features = false }
 kine-stat-tracker = { path = "pallets/stat-tracker", default-features = false }
 kine-tags = { path = "pallets/tags", default-features = false }
+kine-movie = { path = "pallets/movie", default-features = false }
 
 
 # Substrate

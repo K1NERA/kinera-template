@@ -529,6 +529,22 @@ impl kine_tags::Config for Runtime {
 }
 
 
+// Movie
+parameter_types! {
+	pub const MovieStringLimit: u32 = 50;
+	pub const LinkStringLimit: u32 = 10000;
+	pub const MovieCollateral: u32 = 1000;
+}
+
+impl kine_movie::Config for Runtime {
+    type RuntimeEvent = RuntimeEvent;
+    type InternalMovieId = u32;
+    type StringLimit = MovieStringLimit;
+    type LinkStringLimit = LinkStringLimit;
+    type MovieCollateral = MovieCollateral;
+}
+
+
 
 
 
@@ -565,6 +581,7 @@ construct_runtime!(
 		// KineTemplate: kine_template = 50,
 		KineStatTracker: kine_stat_tracker = 51,
 		KineTags: kine_tags = 52,
+		KineMovie: kine_movie = 53,
 	}
 );
 

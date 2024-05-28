@@ -26,6 +26,7 @@ smallvec = { workspace = true }
 #kine-template = { workspace = true, default-features = false }
 kine-stat-tracker = { workspace = true, default-features = false }
 kine-tags = { workspace = true, default-features = false }
+kine-movie = { workspace = true, default-features = false }
 
 
 # Substrate
@@ -103,6 +104,7 @@ std = [
 	"frame-try-runtime?/std",
 	"kine-stat-tracker/std",
 	"kine-tags/std",
+	"kine-movie/std",
 	"log/std",
 	"pallet-aura/std",
 	"pallet-authorship/std",
@@ -153,6 +155,7 @@ runtime-benchmarks = [
 	"hex-literal",
 	"kine-stat-tracker/runtime-benchmarks",
 	"kine-tags/runtime-benchmarks",
+	"kine-movie/runtime-benchmarks",
 	"pallet-balances/runtime-benchmarks",
 	"pallet-collator-selection/runtime-benchmarks",
 	"pallet-message-queue/runtime-benchmarks",
@@ -180,6 +183,7 @@ try-runtime = [
 	"frame-try-runtime/try-runtime",
 	"kine-stat-tracker/try-runtime",
 	"kine-tags/try-runtime",
+	"kine-movie/try-runtime",
 	"pallet-aura/try-runtime",
 	"pallet-authorship/try-runtime",
 	"pallet-balances/try-runtime",
