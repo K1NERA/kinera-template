@@ -36,6 +36,7 @@ kine-stat-tracker = { path = "pallets/stat-tracker", default-features = false }
 kine-tags = { path = "pallets/tags", default-features = false }
 kine-movie = { path = "pallets/movie", default-features = false }
 kine-festival = { path = "pallets/festival", default-features = false }
+kine-ranking-list = { path = "pallets/ranking-list", default-features = false }
 
 
 # Substrate
