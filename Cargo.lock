@@ -4565,6 +4565,7 @@ dependencies = [
  "futures",
  "jsonrpsee",
  "kine-runtime",
+ "kine-tags",
  "log",
  "pallet-transaction-payment-rpc",
  "parity-scale-codec",

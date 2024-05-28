@@ -16,6 +16,7 @@ serde_json = { workspace = true }
 
 # Local
 kine-runtime = { workspace = true }
+kine-tags = { workspace = true, default-features = false }
 
 # Substrate
 frame-benchmarking = { workspace = true }
