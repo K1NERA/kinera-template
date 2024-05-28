@@ -177,6 +177,81 @@ pub mod pallet {
 
 
 
+			
+
+	//** Genesis **//
+        
+	#[pallet::genesis_config]
+	#[derive(frame_support::DefaultNoBound)]
+	pub struct GenesisConfig<T: Config> {
+		pub default_ranking_lists: Vec<(
+			BoundedVec<u8, T::RankingStringLimit>,
+			BoundedVec<u8, T::RankingStringLimit>,
+			u32,
+			BoundedVec<(CategoryId<T>, TagId<T>), T::MaxTags>,
+		)>
+	}
+
+
+
+	#[pallet::genesis_build]
+	impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+		fn build(&self) {
+			
+			let category_type: kine_tags::CategoryType<T> =
+				TryInto::try_into("Ranking List".as_bytes()
+				.to_vec()).map_err(|_|Error::<T>::BadMetadata).unwrap();
+
+			for (name, description, duration_u32, categories_and_tags) in &self.default_ranking_lists {
+				
+				let ranking_list_id =
+					NextRankingListId::<T>::try_mutate(|id| -> Result<RankingListId, DispatchError> {
+						let current_id = *id;
+						*id = id
+							.checked_add(One::one())
+							.ok_or(Error::<T>::Overflow)?;
+						Ok(current_id)
+					}).unwrap();
+				
+				let movies_in_list: BoundedVec<BoundedVec<u8, T::LinkStringLimit>, T::MaxMoviesInList> =
+					TryInto::try_into(Vec::new()).map_err(|_| Error::<T>::BadMetadata).unwrap();
+				let current_block = <frame_system::Pallet<T>>::block_number();
+				
+				let duration_blocks: BlockNumberFor<T> =
+					TryInto::try_into(0u32).map_err(|_| Error::<T>::BadMetadata).unwrap();
+				let list_deadline_block = current_block.checked_add(&duration_blocks.clone()).ok_or(Error::<T>::Overflow).unwrap();
+				Pallet::<T>::create_list_deadline(ranking_list_id, list_deadline_block).unwrap();
+			
+				let votes_by_user: BoundedBTreeMap<
+					T::AccountId,
+					BoundedVec<
+						RankingVote<BoundedVec<u8, T::LinkStringLimit>, BalanceOf<T>>, T::MaxVotersPerList>,
+						T::MaxVotersPerList,
+					> 
+				= BoundedBTreeMap::new();
+				let total_lockup = BalanceOf::<T>::from(0u32);
+
+				let ranking_list = RankingList {
+					name: name.clone(),
+					description: description.clone(),
+					status:RankingListStatus::Ongoing,
+					list_deadline: list_deadline_block.clone(),
+					list_duration: duration_blocks.clone(),
+					movies_in_list: movies_in_list.clone(),
+					votes_by_user: votes_by_user.clone(),
+					total_lockup: total_lockup.clone(),
+					categories_and_tags: categories_and_tags.clone(),
+				};
+				<RankingLists<T>>::insert(ranking_list_id.clone(), ranking_list.clone());
+			}
+		}
+	}
+
+
+
+
+
+
 
 	//** Storage **//
 
@@ -819,7 +894,7 @@ pub mod pallet {
 				}
 
 
-				
+
 
 		}
 
