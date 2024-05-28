@@ -80,6 +80,60 @@ pub mod pallet {
 
 
 
+		//** Genesis **//
+        
+		#[pallet::genesis_config]
+		#[derive(frame_support::DefaultNoBound)]
+		pub struct GenesisConfig<T: Config> {
+			category_to_tag_map: Vec<(
+				(CategoryType<T>, CategoryId<T>),
+				BoundedVec<TagId<T>, T::MaxTags>
+			)>,
+		}
+
+
+
+		#[pallet::genesis_build]
+		impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
+			fn build(&self) {
+				for ((category_type, category_id), bounded_tag_id_list) in &self.category_to_tag_map {
+					
+					// initialize the tag id list
+					let tag_id_list = TagIdList {
+						tag_list: bounded_tag_id_list.clone(),
+					};
+					
+					// insert into the categories storage
+					<Categories<T>>::insert(
+						(category_type.clone(), category_id.clone()),
+						tag_id_list
+					);
+
+					// create an entry for each of the type/category's tags
+					// to contain the relevant TagData 
+					let bounded_content_with_tag: BoundedVec<BoundedVec<u8, T::ContentStringLimit>, T::MaxContentWithTag>
+						= TryInto::try_into(Vec::new()).unwrap();
+
+					for tag_id in bounded_tag_id_list {
+						let tag = TagData {
+							content_with_tag: bounded_content_with_tag.clone(),
+						};
+
+						<Tags<T>>::insert(
+							(category_type, category_id),
+							tag_id,
+							tag
+						);
+					}
+				}
+			}
+		}
+
+
+
+
+
+
 
 
 	//** Storage **//
