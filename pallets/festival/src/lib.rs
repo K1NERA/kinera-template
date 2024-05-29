@@ -179,7 +179,7 @@ pub mod pallet {
                         T::FestivalId, 
                         T::AccountId,
                         BoundedVec<u8, T::NameStringLimit>, //BoundedNameString
-                        BoundedVec<u8, T::NameStringLimit>, //TODO-5
+                        BoundedVec<u8, T::NameStringLimit>,
                         FestivalStatus,
                         BalanceOf<T>, //BalanceOf
                         BoundedVec<Vote<T::AccountId, BoundedVec<u8, T::LinkStringLimit>, BalanceOf<T>>, T::MaxVotes>, //VoteList
@@ -230,7 +230,6 @@ pub mod pallet {
             MoviesAddedToFestival(T::FestivalId, T::AccountId),
             VotedForMovieInFestival(T::FestivalId, BoundedVec<u8, T::LinkStringLimit>, T::AccountId),
             FestivalHasBegun(T::FestivalId),
-            // FestivalHasEnded(T::FestivalId), //TODO-6
             FestivalHasEnded(T::FestivalId, BoundedVec<T::AccountId, T::MaxVotes>), 
             FestivalHasEndedUnsuccessfully(T::FestivalId),
             FestivalActivated(T::FestivalId, T::AccountId),
@@ -527,10 +526,6 @@ pub mod pallet {
             )-> DispatchResultWithPostInfo{
             
                 let who = ensure_signed(origin)?;
-                // ensure!(
-				// 	kine_stat_tracker::Pallet::<T>::is_wallet_registered(who.clone())?,
-				// 	Error::<T>::WalletStatsRegistryRequired,
-				// );
 
                 //TODO-7
                 // for movie_id in internal_movie_ids.clone() {
@@ -882,7 +877,6 @@ pub mod pallet {
                             let fest = festival.as_mut().ok_or(Error::<T>::NonexistentFestival)?;
 
                             let is_fest_new = fest.status == FestivalStatus::AwaitingStartBlock;
-                            // let is_creator_registered = (kine_stat_tracker::Pallet::<T>::is_wallet_registered(fest.owner.clone())?); //TODO-8
                             let is_creator_registered = true;
                             if is_fest_new && is_creator_registered {
                                 // update the festival ownership status
@@ -901,7 +895,7 @@ pub mod pallet {
                                 
                                 fest.status = FestivalStatus::Active;
                                 Self::deposit_event(Event::FestivalHasBegun(festival_id.clone()));
-                            } //TODO-9
+                            }
                             
                             Ok(())
                         })?;
