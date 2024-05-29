@@ -1,14 +1,8 @@
 //** About **//
-	// Ranking lists order content based on votes and provide staking
-	// based on locked funds.
-	// new era > find staking differences > reward top 1000 films
+	// Ranking lists order content based on votes and provide a return based on the
+	// total locked funds. Users can add movies to ranking lists, and depending on 
+	// that movie's total locked funds, the content will be ordered and rewards paid.  
 	
-	//TODO-0 add dynamic APY to governance
-	//TODO-1 add dynamic deadlines, where if a MaxListsPerBlock is exceeded, a new block automatically calculated 
-	//TODO-2 compare mint_into vs deposit_into_existing
-	//TODO-3 validate the inserted deadline when creating a ranking list
-	//TODO-4 improve the blocks_per_year calculation by creating a static variable in stat-tracker
-	//TODO-5 sort tied entries by total votes after sorting the winners
 
 
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -398,7 +392,6 @@ pub mod pallet {
 				let movies_in_list: BoundedVec<BoundedVec<u8, T::LinkStringLimit>, T::MaxMoviesInList> =
 					TryInto::try_into(Vec::new()).map_err(|_| Error::<T>::BadMetadata)?;
 
-				//TODO-3
 				ensure!(list_duration >= T::MinimumListDuration::get().into(), Error::<T>::ListDurationTooShort);
 				let current_block = <frame_system::Pallet<T>>::block_number();
 				let list_deadline_block = current_block.checked_add(&list_duration).ok_or(Error::<T>::Overflow)?;
@@ -811,7 +804,7 @@ pub mod pallet {
 					}
 
 					// iterate each user's votes for the ranking list and calculate the return
-					let blocks_in_year: u32 = 5256000; //TODO-4
+					let blocks_in_year: u32 = 5256000;
 					for (account_id, vote_list) in ranking_list.votes_by_user.iter() {
 						
 						// get each vote's total power, adding it to movies_by_power and tallying the total tokens
@@ -866,6 +859,7 @@ pub mod pallet {
 				}
 
 
+				
 				// Takes the total tokens locked in a vote and multiplies their value
 				// based on the chosen conviction multiplier. In other words, this calculates
 				// a vote's voting power.
